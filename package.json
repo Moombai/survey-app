@@ -1,0 +1,19 @@
+{
+  "name": "survey-app",
+  "version": "1.0.0",
+  "description": "\"questionnaire app built with JavaScript and sass\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moombai/survey-app.git"
+  },
+  "author": "moombai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moombai/survey-app/issues"
+  },
+  "homepage": "https://github.com/Moombai/survey-app#readme"
+}
