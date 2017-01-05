@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Moombai/survey-app/issues"
   },
-  "homepage": "https://github.com/Moombai/survey-app#readme"
+  "homepage": "https://github.com/Moombai/survey-app#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }
