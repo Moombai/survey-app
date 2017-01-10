@@ -25,3 +25,6 @@ gulp.task('watch', ['browserSync', 'sass'], function (){
   gulp.watch('app/*.html', browserSync.reload); 
   gulp.watch('app/js/**/*.js', browserSync.reload); 
 });
+
+// The default task (called when you run `gulp` from cli)
+gulp.task('default', ['watch']);
