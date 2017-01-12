@@ -1,0 +1,33 @@
+[
+  {
+    "page": "1",
+    "heading" : "How often do you exercise per week?",
+    "choices": 
+      [
+        "I never exercise.",
+        "Less than 2 times per week.",
+        "3 to 4 times per week.",
+        "5 or more times per week."
+      ]
+  },
+  {
+    "page": "2",
+    "heading" : "I have a healthy and balanced diet.",
+    "choices": 
+      [
+        "Not true",
+        "Partly true",
+        "Certainly true"
+      ]
+  },
+  {
+    "page": "3",
+    "heading" : "I frequently go to the gym.",
+    "choices": 
+      [
+        "Not true",
+        "Partly true",
+        "Certainly true"
+      ]
+  }
+]
