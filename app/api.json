@@ -1,157 +1,121 @@
-[
-  {
+[{
     "page": "1",
     "heading": "What is your favourite development language?",
-    "choices": 
-      [
-        {
-            "question": "Franzen ramps readymade, succulents vinyl craft beer street.",
-            "image": "imageURL",
-            "score": 1,
-            "selected": true
-        },
-        {
-            "question": "Art trust fund 8-bit. Franzen vinyl taxidermy readymade.",
-            "image": "imageURL",
-            "score": 4,
-            "selected": false
-        },
-        {
-            "question": "eliac yuccie truffaut, gluten-free pok pok taxidermy synth put a bird.",
-            "image": "imageURL",
-            "score": 2,
-            "selected": false
-        },
-        {
-            "question": "It chartreuse austin cred kinfolk scenester dreamcatcher flannel.",
-            "image": "imageURL",
-            "score": 3,
-            "selected": false
-        }
-      ]
-  },
-  {
+    "choices": [{
+        "question": "Franzen ramps readymade, succulents vinyl craft beer street.",
+        "image": "imageURL",
+        "score": 1,
+        "selected": true
+    }, {
+        "question": "Art trust fund 8-bit. Franzen vinyl taxidermy readymade.",
+        "image": "imageURL",
+        "score": 4,
+        "selected": false
+    }, {
+        "question": "eliac yuccie truffaut, gluten-free pok pok taxidermy synth put a bird.",
+        "image": "imageURL",
+        "score": 2,
+        "selected": false
+    }, {
+        "question": "It chartreuse austin cred kinfolk scenester dreamcatcher flannel.",
+        "image": "imageURL",
+        "score": 3,
+        "selected": false
+    }]
+}, {
     "page": "2",
-    "heading" : "How many languages do you think a developer should be comfortable with?",
-    "choices": 
-      [
-        {
-            "question": "Cold-pressed vexillologist brunch kale chips ennui pok pok, knausgaard etsy intelligentsia.",
-            "image": "imageURL",
-            "score": 4,
-            "selected": false
-        },
-        {
-            "question": "It chartreuse austin cred kinfolk scenester dreamcatcher flannel.",
-            "image": "imageURL",
-            "score": 2,
-            "selected": false
-        },
-        {
-            "question": "First base meh tacos, cronut asymmetrical chartreuse hella thundercats.",
-            "image": "imageURL",
-            "score": 3,
-            "selected": true
-        },
-        {
-            "question": "ranzen ramps readymade, succulents vinyl craft beer street.",
-            "image": "imageURL",
-            "score": 0,
-            "selected": false
-        }
-      ]
-  },
-  {
+    "heading": "How many languages do you think a developer should be comfortable with?",
+    "choices": [{
+        "question": "Cold-pressed vexillologist brunch kale chips ennui pok pok, knausgaard etsy intelligentsia.",
+        "image": "imageURL",
+        "score": 4,
+        "selected": false
+    }, {
+        "question": "It chartreuse austin cred kinfolk scenester dreamcatcher flannel.",
+        "image": "imageURL",
+        "score": 2,
+        "selected": false
+    }, {
+        "question": "First base meh tacos, cronut asymmetrical chartreuse hella thundercats.",
+        "image": "imageURL",
+        "score": 3,
+        "selected": true
+    }, {
+        "question": "ranzen ramps readymade, succulents vinyl craft beer street.",
+        "image": "imageURL",
+        "score": 0,
+        "selected": false
+    }]
+}, {
     "page": "3",
-    "heading" : "If you had a choice between PHP and JavaScript you would?",
-    "choices": 
-      [
-        {
-            "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
-            "image": "imageURL",
-            "score": 1,
-            "selected": false
-        },
-        {
-            "question": "DIY narwhal put a bird on it la croix chillwave franzen.",
-            "image": "imageURL",
-            "score": 2,
-            "selected": true
-        },
-        {
-            "question": "Gluten-free scenester four loko trust fund chia venmo mlkshk. 8-bit post-ironic.",
-            "image": "imageURL",
-            "score": 3,
-            "selected": false
-        },
-        {
-            "question": "Pitchfork stumptown, master cleanse succulents waistcoat mustache banh mi authentic.",
-            "image": "imageURL",
-            "score": 4, 
-            "selected": false
-        }
-      ]
-  },
-  {
+    "heading": "If you had a choice between PHP and JavaScript you would?",
+    "choices": [{
+        "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
+        "image": "imageURL",
+        "score": 1,
+        "selected": false
+    }, {
+        "question": "DIY narwhal put a bird on it la croix chillwave franzen.",
+        "image": "imageURL",
+        "score": 2,
+        "selected": true
+    }, {
+        "question": "Gluten-free scenester four loko trust fund chia venmo mlkshk. 8-bit post-ironic.",
+        "image": "imageURL",
+        "score": 3,
+        "selected": false
+    }, {
+        "question": "Pitchfork stumptown, master cleanse succulents waistcoat mustache banh mi authentic.",
+        "image": "imageURL",
+        "score": 4,
+        "selected": false
+    }]
+}, {
     "page": "4",
-    "heading" : "When faced with the option of unit testing your attitude is?",
-    "choices": 
-      [
-        {
-            "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
-            "image": "imageURL",
-            "score": 1,
-            "selected": false
-        },
-        {
-            "question": "DIY narwhal put a bird on it la croix chillwave franzen.",
-            "image": "imageURL",
-            "score": 2,
-            "selected": true
-        },
-        {
-            "question": "Gluten-free scenester four loko trust fund chia venmo mlkshk. 8-bit post-ironic.",
-            "image": "imageURL",
-            "score": 3,
-            "selected": false
-        },
-        {
-            "question": "Pitchfork stumptown, master cleanse succulents waistcoat mustache banh mi authentic.",
-            "image": "imageURL",
-            "score": 4, 
-            "selected": false
-        }
-      ]
-  },
-  {
+    "heading": "When faced with the option of unit testing your attitude is?",
+    "choices": [{
+        "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
+        "image": "imageURL",
+        "score": 1,
+        "selected": false
+    }, {
+        "question": "DIY narwhal put a bird on it la croix chillwave franzen.",
+        "image": "imageURL",
+        "score": 2,
+        "selected": true
+    }, {
+        "question": "Gluten-free scenester four loko trust fund chia venmo mlkshk. 8-bit post-ironic.",
+        "image": "imageURL",
+        "score": 3,
+        "selected": false
+    }, {
+        "question": "Pitchfork stumptown, master cleanse succulents waistcoat mustache banh mi authentic.",
+        "image": "imageURL",
+        "score": 4,
+        "selected": false
+    }]
+}, {
     "page": "5",
-    "heading" : "How often do you contribute to open source projects?",
-    "choices": 
-      [
-        {
-            "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
-            "image": "imageURL",
-            "score": 1,
-            "selected": false
-        },
-        {
-            "question": "DIY narwhal put a bird on it la croix chillwave franzen.",
-            "image": "imageURL",
-            "score": 2,
-            "selected": true
-        },
-        {
-            "question": "Gluten-free scenester four loko trust fund chia venmo mlkshk. 8-bit post-ironic.",
-            "image": "imageURL",
-            "score": 3,
-            "selected": false
-        },
-        {
-            "question": "Pitchfork stumptown, master cleanse succulents waistcoat mustache banh mi authentic.",
-            "image": "imageURL",
-            "score": 4, 
-            "selected": false
-        }
-      ]
-  }
-]
+    "heading": "How often do you contribute to open source projects?",
+    "choices": [{
+        "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
+        "image": "imageURL",
+        "score": 1,
+        "selected": false
+    }, {
+        "question": "DIY narwhal put a bird on it la croix chillwave franzen.",
+        "image": "imageURL",
+        "score": 2,
+        "selected": true
+    }, {
+        "question": "Gluten-free scenester four loko trust fund chia venmo mlkshk. 8-bit post-ironic.",
+        "image": "imageURL",
+        "score": 3,
+        "selected": false
+    }, {
+        "question": "Pitchfork stumptown, master cleanse succulents waistcoat mustache banh mi authentic.",
+        "image": "imageURL",
+        "score": 4,
+        "selected": false
+    }]
+}]
