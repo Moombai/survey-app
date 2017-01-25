@@ -133,13 +133,12 @@
 
 
 
-
 // COMPONENTS
 //
 // Build and include your project’s UI Compoments here.
-@import "components/components.buttons";
+@import "components/components.buttons"; //example UI component
 // where my components will go; header, footer, navigation, buttons etc. 
-
+@import "components/components.survey";
 
 
 
