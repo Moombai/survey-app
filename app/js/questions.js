@@ -19,32 +19,38 @@ function weAreReady(){
 	http.onload = function(){
 	  var ourData = JSON.parse(http.responseText);
 	  renderQuestionnaire(ourData); // Run function on the data object after successful JSON call 
+	  prev.classList.add("u-hidden-visually");
+
 
 	  var counter = 0; 
 
 		//create a function that will show the next question on next button click
 		next.addEventListener("click", function(){
-			counter += 1; 
-			if (counter >= ourData.length) {
-				console.log("You have reached the end!");
-				// this.classList.add("u-hidden-visually");
-				return;
+			counter ++; 
+			prev.classList.remove("u-hidden-visually");
+			
+			if (counter >= ourData.length - 1) {
+				console.log("the end");
+				this.classList.toggle("u-hidden-visually");
 			}
 			renderQuestionnaire(ourData, counter);
 		});
 
 		//previous button event 
 		prev.addEventListener("click", function(){
-			counter -= 1; 
-			if (counter < 0) {
+			counter --; 
+			
+			if (counter <= 0) {
 				console.log("We can return no further!");
-				return;
+				this.classList.toggle("u-hidden-visually");
+	
+			} else if(counter < ourData.length) {
+				console.log("remove hidden");
+				next.classList.remove("u-hidden-visually");
 			}
 			renderQuestionnaire(ourData, counter);
 		});
 	}
-
-
 }
 
 //Render the survey interface from scratch  
