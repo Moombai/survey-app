@@ -12,47 +12,69 @@ ready(weAreReady);
 
 function weAreReady(){
 	console.log("Dom is Ready!");
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'api.json');
+	var http = new XMLHttpRequest();
+	http.open('GET', 'api.json');
+	http.send();
 
-	xhr.onload = function(){
-	  var ourData = xhr.responseText;
+	http.onload = function(){
+	  var ourData = JSON.parse(http.responseText);
 	  renderQuestionnaire(ourData); // Run function on the data object after successful JSON call 
+
+	  var counter = 0; 
+
+		//create a function that will show the next question on next button click
+		next.addEventListener("click", function(){
+			counter += 1; 
+			if (counter >= ourData.length) {
+				console.log("You have reached the end!");
+				// this.classList.add("u-hidden-visually");
+				return;
+			}
+			renderQuestionnaire(ourData, counter);
+		});
+
+		//previous button event 
+		prev.addEventListener("click", function(){
+			counter -= 1; 
+			if (counter < 0) {
+				console.log("We can return no further!");
+				return;
+			}
+			renderQuestionnaire(ourData, counter);
+		});
 	}
 
-	xhr.send();
+
 }
 
 //Render the survey interface from scratch  
-function renderQuestionnaire(data){
-	var parsed = JSON.parse(data);
+function renderQuestionnaire(data, value){
 	var htmlString = "";
+	var index = value || 0;
 
-	htmlString += '<h5 id="heading">' + parsed[0].heading + '</h5>';
 
-  for (i = 0; i < parsed[1].choices.length ; i++) {
+	htmlString += '<h5 id="heading">' + data[index].heading + '</h5>';
+
+  for (i = 0; i < data[index].choices.length ; i++) {
 
   	htmlString += '<label class="block">'; 
   	htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup" value="B">';
-  	htmlString += parsed[0].choices[i].question;
+  	htmlString += data[index].choices[i].question;
     htmlString +=  '</label>'; 
   }
 
-  form.insertAdjacentHTML('beforeend', htmlString);
+  form.innerHTML = htmlString;
+ 
 }
-
 
 
 //add event listeners for button elements 
 var next = document.getElementById("btn-next");
 var prev = document.getElementById("btn-prev");
-var head = document.getElementById("heading");
-var question = document.getElementById("question");
+
 var form = document.getElementById("myForm");
 var title = document.getElementById("h1");
 
-
-//create a function that will show the next qustion on next button click
 
 
 // next.addEventListener("click", getMyData);

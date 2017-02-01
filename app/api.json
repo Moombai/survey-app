@@ -74,22 +74,22 @@
     "page": "4",
     "heading": "When faced with the option of unit testing your attitude is?",
     "choices": [{
-        "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
+        "question": "Lorem Ipsum is simply dummy text of the printing and typesetting.",
         "image": "imageURL",
         "score": 1,
         "selected": false
     }, {
-        "question": "DIY narwhal put a bird on it la croix chillwave franzen.",
+        "question": "It has been the industry's standard dummy text ever since the 1500s.",
         "image": "imageURL",
         "score": 2,
         "selected": true
     }, {
-        "question": "Gluten-free scenester four loko trust fund chia venmo mlkshk. 8-bit post-ironic.",
+        "question": "It has survived not only five centuries.",
         "image": "imageURL",
         "score": 3,
         "selected": false
     }, {
-        "question": "Pitchfork stumptown, master cleanse succulents waistcoat mustache banh mi authentic.",
+        "question": "But also the leap into electronic typesetting, remaining essentially unchanged.",
         "image": "imageURL",
         "score": 4,
         "selected": false
