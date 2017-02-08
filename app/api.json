@@ -1,5 +1,5 @@
 [{
-    "page": "1",
+    "page": "A",
     "heading": "What is your favourite development language?",
     "choices": [{
         "question": "Franzen ramps readymade, succulents vinyl craft beer street.",
@@ -23,7 +23,7 @@
         "selected": false
     }]
 }, {
-    "page": "2",
+    "page": "B",
     "heading": "How many languages do you think a developer should be comfortable with?",
     "choices": [{
         "question": "Cold-pressed vexillologist brunch kale chips ennui pok pok, knausgaard etsy intelligentsia.",
@@ -47,7 +47,7 @@
         "selected": false
     }]
 }, {
-    "page": "3",
+    "page": "C",
     "heading": "If you had a choice between PHP and JavaScript you would?",
     "choices": [{
         "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
@@ -71,7 +71,7 @@
         "selected": false
     }]
 }, {
-    "page": "4",
+    "page": "D",
     "heading": "When faced with the option of unit testing your attitude is?",
     "choices": [{
         "question": "Lorem Ipsum is simply dummy text of the printing and typesetting.",
@@ -95,7 +95,7 @@
         "selected": false
     }]
 }, {
-    "page": "5",
+    "page": "E",
     "heading": "How often do you contribute to open source projects?",
     "choices": [{
         "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",

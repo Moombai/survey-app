@@ -1,3 +1,9 @@
+//select HTML elements using JavaScript
+var next = document.getElementById("btn-next");
+var prev = document.getElementById("btn-prev");
+var form = document.getElementById("myForm");
+
+
 //fire the javascript when the document has loaded 
 function ready(fn) {
   if (document.readyState != 'loading'){
@@ -16,16 +22,21 @@ function weAreReady(){
 	http.open('GET', 'api.json');
 	http.send();
 
-	http.onload = function(){
+	http.onload = function(){ 
 	  var ourData = JSON.parse(http.responseText);
-	  renderQuestionnaire(ourData); // Run function on the data object after successful JSON call 
+	  //render survey interface on load
+	  renderQuestionnaire(ourData); 
 	  prev.classList.add("u-hidden-visually");
 
-
+	  //track questions page 
 	  var counter = 0; 
 
-		//create a function that will show the next question on next button click
+		//next button event
 		next.addEventListener("click", function(){
+
+			//add selection to session storage 
+			whichInput(ourData, counter); 
+
 			counter ++; 
 			prev.classList.remove("u-hidden-visually");
 			
@@ -45,7 +56,6 @@ function weAreReady(){
 				this.classList.toggle("u-hidden-visually");
 	
 			} else if(counter < ourData.length) {
-				console.log("remove hidden");
 				next.classList.remove("u-hidden-visually");
 			}
 			renderQuestionnaire(ourData, counter);
@@ -53,7 +63,7 @@ function weAreReady(){
 	}
 }
 
-//Render the survey interface from scratch  
+//Render the survey interface   
 function renderQuestionnaire(data, value){
 	var htmlString = "";
 	var index = value || 0;
@@ -61,29 +71,45 @@ function renderQuestionnaire(data, value){
 
 	htmlString += '<h5 id="heading">' + data[index].heading + '</h5>';
 
-  for (i = 0; i < data[index].choices.length ; i++) {
+    for (i = 0; i < data[index].choices.length ; i++) {
 
-  	htmlString += '<label class="block">'; 
-  	htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup" value="B">';
-  	htmlString += data[index].choices[i].question;
-    htmlString +=  '</label>'; 
-  }
+  	  htmlString += '<label class="block">';
+  	  //value should be pulled from index object? It's static at the moment 
+  	  htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup" value="B">'; 
+  	  htmlString += data[index].choices[i].question;
+      htmlString +=  '</label>'; 
+    }
 
   form.innerHTML = htmlString;
  
 }
 
+//Use JavaScript to add radio selection
 
-//add event listeners for button elements 
-var next = document.getElementById("btn-next");
-var prev = document.getElementById("btn-prev");
+//alert, no item selected if no element has been checked. 
+function whichInput(data, count){
+  var inputs = document.getElementsByTagName('input');
+  var value = "";
+  var index = count || 0;
+  for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].type === 'radio' && inputs[i].checked) {
+          // get value, set checked flag or do whatever you need to
+        value = i + 1; 
+        console.log(value);
+        break;
+      }
+  }
 
-var form = document.getElementById("myForm");
-var title = document.getElementById("h1");
+  sessionStorage.setItem(data[index].page, value);
+  console.log(sessionStorage);
+}
+
+// retrieve session values before adding them to an array: 
+// for (var i = 0; i < sessionStorage.length; i++){
+// myArray.push(sessionStorage.getItem(sessionStorage.key(1)));
+// }
 
 
-
-// next.addEventListener("click", getMyData);
 
 
 
