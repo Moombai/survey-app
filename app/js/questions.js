@@ -1,8 +1,14 @@
+//Ensure that session storage is clear on page load or refresh 
+sessionStorage.clear();
+
+
 //select HTML elements using JavaScript
 var next = document.getElementById("btn-next");
 var prev = document.getElementById("btn-prev");
 var form = document.getElementById("myForm");
+var result = document.getElementById("btn-result");
 
+var myArray = [];
 
 //fire the javascript when the document has loaded 
 function ready(fn) {
@@ -27,6 +33,7 @@ function weAreReady(){
 	  //render survey interface on load
 	  renderQuestionnaire(ourData); 
 	  prev.classList.add("u-hidden-visually");
+	  result.classList.add("u-hidden-visually");
 
 	  //track questions page 
 	  var counter = 0; 
@@ -43,6 +50,7 @@ function weAreReady(){
 			if (counter >= ourData.length - 1) {
 				console.log("the end");
 				this.classList.toggle("u-hidden-visually");
+				result.classList.toggle("u-hidden-visually");
 			}
 			renderQuestionnaire(ourData, counter);
 		});
@@ -60,6 +68,30 @@ function weAreReady(){
 			}
 			renderQuestionnaire(ourData, counter);
 		});
+
+		result.addEventListener("click", function(){
+			whichInput(ourData, counter);
+			//process the results
+
+			// retrieve session values before adding them to an array: 
+			for (var i = 0; i < sessionStorage.length; i++){
+			myArray.push(parseInt(sessionStorage.getItem(sessionStorage.key([i]))));
+			}
+
+			//run array method to show most represented answer 
+			var sum = myArray.reduce(function(a,b){
+				return a + b; 
+			}, 0);
+
+			console.log(sum);
+
+			//render answer if sum is x return y if sum is a return b if sum is c return d blah blah
+			renderResult(sum);
+			//hide prev button, hide result button 
+			this.classList.toggle("u-hidden-visually");
+			prev.classList.add("u-hidden-visually");
+
+		})
 	}
 }
 
@@ -75,7 +107,7 @@ function renderQuestionnaire(data, value){
 
   	  htmlString += '<label class="block">';
   	  //value should be pulled from index object? It's static at the moment 
-  	  htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup" value="B">'; 
+  	  htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup">'; 
   	  htmlString += data[index].choices[i].question;
       htmlString +=  '</label>'; 
     }
@@ -104,10 +136,23 @@ function whichInput(data, count){
   console.log(sessionStorage);
 }
 
-// retrieve session values before adding them to an array: 
-// for (var i = 0; i < sessionStorage.length; i++){
-// myArray.push(sessionStorage.getItem(sessionStorage.key(1)));
-// }
+function renderResult(sum){
+	var text;
+	if(sum <= 5) {
+		text = "How are you still alive?";
+	} else if (sum <= 10){
+		text = "You really need to go to the gym!";
+	} else if (sum <= 15){
+		text = "You're doing ok, exercise some more and you'll be on the right track.";
+	} else {
+		text = "You really are in shape, keep going!";
+	}
+
+	form.innerHTML = text;
+
+	//Render the result with a picture using JSON?
+}
+
 
 
 
