@@ -1,3 +1,7 @@
+//Ensure that users cannot move onto the next question without selecting an answer 
+//Add a picture to the results page 
+//Add a try again button?
+
 //Ensure that session storage is clear on page load or refresh 
 sessionStorage.clear();
 
@@ -47,7 +51,7 @@ function weAreReady(){
 			counter ++; 
 			prev.classList.remove("u-hidden-visually");
 			
-			if (counter >= ourData.length - 1) {
+			if (counter >= ourData.questions.length - 1) {
 				console.log("the end");
 				this.classList.toggle("u-hidden-visually");
 				result.classList.toggle("u-hidden-visually");
@@ -63,7 +67,7 @@ function weAreReady(){
 				console.log("We can return no further!");
 				this.classList.toggle("u-hidden-visually");
 	
-			} else if(counter < ourData.length) {
+			} else if(counter < ourData.questions.length) {
 				next.classList.remove("u-hidden-visually");
 			}
 			renderQuestionnaire(ourData, counter);
@@ -86,7 +90,7 @@ function weAreReady(){
 			console.log(sum);
 
 			//render answer if sum is x return y if sum is a return b if sum is c return d blah blah
-			renderResult(sum);
+			renderResults(sum);
 			//hide prev button, hide result button 
 			this.classList.toggle("u-hidden-visually");
 			prev.classList.add("u-hidden-visually");
@@ -101,14 +105,14 @@ function renderQuestionnaire(data, value){
 	var index = value || 0;
 
 
-	htmlString += '<h5 id="heading">' + data[index].heading + '</h5>';
+	htmlString += '<h5 id="heading">' + data.questions[index].heading + '</h5>';
 
-    for (i = 0; i < data[index].choices.length ; i++) {
+    for (i = 0; i < data.questions[index].choices.length ; i++) {
 
   	  htmlString += '<label class="block">';
   	  //value should be pulled from index object? It's static at the moment 
   	  htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup">'; 
-  	  htmlString += data[index].choices[i].question;
+  	  htmlString += data.questions[index].choices[i].question;
       htmlString +=  '</label>'; 
     }
 
@@ -132,21 +136,25 @@ function whichInput(data, count){
       }
   }
 
-  sessionStorage.setItem(data[index].page, value);
+  sessionStorage.setItem(data.questions[index].page, value);
   console.log(sessionStorage);
 }
 
-function renderResult(sum){
-	var text;
+function renderResults(sum){
+	var text = '<p>';
 	if(sum <= 5) {
-		text = "How are you still alive?";
+		text += "How are you still alive?";
 	} else if (sum <= 10){
-		text = "You really need to go to the gym!";
+		text += "You really need to go to the gym!";
 	} else if (sum <= 15){
-		text = "You're doing ok, exercise some more and you'll be on the right track.";
+		text += "You're doing ok, exercise some more and you'll be on the right track.";
 	} else {
-		text = "You really are in shape, keep going!";
+		text += "You really are in shape, keep going!";
 	}
+
+	text += '</p>';
+
+	text += '<img src="https://c.tribune.com.pk/2015/06/896358-vxcv-1433312663-295-640x480.jpg">';
 
 	form.innerHTML = text;
 
