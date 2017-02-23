@@ -90,7 +90,7 @@ function weAreReady(){
 			console.log(sum);
 
 			//render answer if sum is x return y if sum is a return b if sum is c return d blah blah
-			renderResults(sum);
+			renderResults(sum, ourData);
 			//hide prev button, hide result button 
 			this.classList.toggle("u-hidden-visually");
 			prev.classList.add("u-hidden-visually");
@@ -140,25 +140,29 @@ function whichInput(data, count){
   console.log(sessionStorage);
 }
 
-function renderResults(sum){
+function renderResults(sum, data){
+	//Add some content to say how the user scored 
 	var text = '<p>';
-	if(sum <= 5) {
-		text += "How are you still alive?";
-	} else if (sum <= 10){
-		text += "You really need to go to the gym!";
-	} else if (sum <= 15){
-		text += "You're doing ok, exercise some more and you'll be on the right track.";
+	var image = '<img src=';
+
+	if(sum <= 7) {
+		text += "You are in terrible shape and need to make serious changes. Sort out your life, now!";
+		image += data.images.slob;
+	} else if (sum <= 14){
+		text += "You're on the right track but could do more. Keep pushing!";
+		image += data.images.middle;
 	} else {
-		text += "You really are in shape, keep going!";
+		text += "You really are in great shape, keep going!";
+		image += data.images.healthy;
 	}
 
 	text += '</p>';
+	image +='>'
 
-	text += '<img src="https://c.tribune.com.pk/2015/06/896358-vxcv-1433312663-295-640x480.jpg">';
+	text += image;
 
 	form.innerHTML = text;
-
-	//Render the result with a picture using JSON?
+	//add a button to restart the quiz
 }
 
 

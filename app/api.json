@@ -1,9 +1,9 @@
 {
-    "images": [{
-        "slob": "https://c.tribune.com.pk/2015/06/896358-vxcv-1433312663-295-640x480.jpg"
-    }, {
-        "health": "http://www.gymbodygain.com/wp-content/uploads/2013/06/Arnold.jpg"
-    }],
+    "images": {
+        "slob": "https://c.tribune.com.pk/2015/06/896358-vxcv-1433312663-295-640x480.jpg",
+        "middle": "https://sixpackabs.com/wp-content/uploads/shutterstock_269243096.jpg",
+        "healthy": "http://www.gymbodygain.com/wp-content/uploads/2013/06/Arnold.jpg"
+    }, 
     "questions": [{
         "page": "A",
         "heading": "What is your favourite development language?",
