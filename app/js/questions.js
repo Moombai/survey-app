@@ -7,12 +7,14 @@ sessionStorage.clear();
 
 
 //select HTML elements using JavaScript
-var next = document.getElementById("btn-next");
-var prev = document.getElementById("btn-prev");
-var form = document.getElementById("myForm");
-var result = document.getElementById("btn-result");
+var nextButton = document.getElementById("btn-next");
+var prevButton = document.getElementById("btn-prev");
+var resultButton = document.getElementById("btn-result");
+var mainContentElement = document.getElementById("myForm");
 
-var myArray = [];
+var questionScores = [];
+
+ready(runApplication);
 
 //fire the javascript when the document has loaded 
 function ready(fn) {
@@ -20,80 +22,79 @@ function ready(fn) {
     fn();
   } else {
   	console.log("Dom is loading");
-    document.addEventListener('DOMContentLoaded', weAreReady);
+    document.addEventListener('DOMContentLoaded', runApplication);
   }
 }
 
-ready(weAreReady);
 
-function weAreReady(){
+function runApplication(){
 	console.log("Dom is Ready!");
 	var http = new XMLHttpRequest();
 	http.open('GET', 'api.json');
 	http.send();
 
 	http.onload = function(){ 
-	  var ourData = JSON.parse(http.responseText);
+	  var jsonData = JSON.parse(http.responseText);
 	  //render survey interface on load
-	  renderQuestionnaire(ourData); 
-	  prev.classList.add("u-hidden-visually");
-	  result.classList.add("u-hidden-visually");
+	  renderQuestionnaire(jsonData); 
+	  prevButton.classList.add("u-hidden-visually");
+	  resultButton.classList.add("u-hidden-visually");
 
 	  //track questions page 
-	  var counter = 0; 
+	  var currentPage = 0; 
 
 		//next button event
-		next.addEventListener("click", function(){
+		nextButton.addEventListener("click", function(){
 
 			//add selection to session storage 
-			whichInput(ourData, counter); 
+			whichInput(jsonData, currentPage); 
 
-			counter ++; 
-			prev.classList.remove("u-hidden-visually");
+			currentPage ++; 
+			prevButton.classList.remove("u-hidden-visually");
 			
-			if (counter >= ourData.questions.length - 1) {
+			if (currentPage >= jsonData.questions.length - 1) {
 				console.log("the end");
 				this.classList.toggle("u-hidden-visually");
-				result.classList.toggle("u-hidden-visually");
+				resultButton.classList.toggle("u-hidden-visually");
 			}
-			renderQuestionnaire(ourData, counter);
+			renderQuestionnaire(jsonData, currentPage);
 		});
 
 		//previous button event 
-		prev.addEventListener("click", function(){
-			counter --; 
+		prevButton.addEventListener("click", function(){
+			currentPage --; 
 			
-			if (counter <= 0) {
+			if (currentPage <= 0) {
 				console.log("We can return no further!");
 				this.classList.toggle("u-hidden-visually");
 	
-			} else if(counter < ourData.questions.length) {
-				next.classList.remove("u-hidden-visually");
+			} else if(currentPage < jsonData.questions.length) {
+				nextButton.classList.remove("u-hidden-visually");
 			}
-			renderQuestionnaire(ourData, counter);
+			renderQuestionnaire(jsonData, currentPage);
 		});
 
-		result.addEventListener("click", function(){
-			whichInput(ourData, counter);
+		resultButton.addEventListener("click", function(){
+			whichInput(jsonData, currentPage);
 			//process the results
 
 			// retrieve session values before adding them to an array: 
 			for (var i = 0; i < sessionStorage.length; i++){
-			myArray.push(parseInt(sessionStorage.getItem(sessionStorage.key([i]))));
+			questionScores.push(parseInt(sessionStorage.getItem(sessionStorage.key([i]))));
 			}
 
 			//run array method to show most represented answer 
-			var sum = myArray.reduce(function(a,b){
+			var totalScore = questionScores.reduce(function(a,b){
 				return a + b; 
 			}, 0);
 
-			console.log(sum);
+			console.log(totalScore);
 
 			//render answer if sum is x return y if sum is a return b if sum is c return d blah blah
-			renderResults(sum, ourData);
+			renderResults(totalScore, jsonData);
 			//hide prev button, hide result button 
 			this.classList.toggle("u-hidden-visually");
-			prev.classList.add("u-hidden-visually");
+			prevButton.classList.add("u-hidden-visually");
 
 		})
 	}
@@ -116,17 +117,17 @@ function renderQuestionnaire(data, value){
       htmlString +=  '</label>'; 
     }
 
-  form.innerHTML = htmlString;
+  mainContentElement.innerHTML = htmlString;
  
 }
 
 //Use JavaScript to add radio selection
 
 //alert, no item selected if no element has been checked. 
-function whichInput(data, count){
+function whichInput(data, page){
   var inputs = document.getElementsByTagName('input');
   var value = "";
-  var index = count || 0;
+  var index = page || 0;
   for (var i = 0; i < inputs.length; i++) {
       if (inputs[i].type === 'radio' && inputs[i].checked) {
           // get value, set checked flag or do whatever you need to
@@ -161,7 +162,7 @@ function renderResults(sum, data){
 
 	text += image;
 
-	form.innerHTML = text;
+	mainContentElement.innerHTML = text;
 	//add a button to restart the quiz
 }
 
