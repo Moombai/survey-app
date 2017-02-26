@@ -33,10 +33,14 @@ function runApplication(){
 
 
 		nextButton.addEventListener("click", function(){
-			getRadioInput(jsonData, currentPage); 
-			currentPage ++; 
-			renderQuestionnaire(jsonData, currentPage);
-			buttonController(currentPage, jsonData);
+			var inputSelection = getRadioInput(jsonData, currentPage); 
+			if (inputSelection === true) {
+				currentPage ++; 
+				renderQuestionnaire(jsonData, currentPage);
+				buttonController(currentPage, jsonData);
+			} else {
+				alert("Please make a selection!");
+			}
 		});
 
 		prevButton.addEventListener("click", function(){
@@ -46,10 +50,15 @@ function runApplication(){
 		});
 
 		resultButton.addEventListener("click", function(){
-			getRadioInput(jsonData, currentPage);
-			renderResults(jsonData);
-			this.classList.toggle("u-hidden-visually");
-			prevButton.classList.add("u-hidden-visually");
+			var inputSelection = getRadioInput(jsonData, currentPage); 
+			if (inputSelection === true) {
+				getRadioInput(jsonData, currentPage);
+				renderResults(jsonData);
+				this.classList.toggle("u-hidden-visually");
+				prevButton.classList.add("u-hidden-visually");
+			} else {
+				alert("Please make a selection");
+			}
 		});
 	}
 }
@@ -75,6 +84,7 @@ function renderQuestionnaire(data, value){
 //alert, no item selected if no element has been checked. 
 function getRadioInput(data, page){
   var inputs = document.getElementsByTagName('input');
+  var selected = false;
   var value = "";
   var index = page || 0;
   for (var i = 0; i < inputs.length; i++) {
@@ -82,12 +92,15 @@ function getRadioInput(data, page){
           // get value, set checked flag or do whatever you need to
         value = i + 1; 
         console.log(value);
+        selected = true;
         break;
       }
   }
   sessionStorage.setItem(data.questions[index].page, value);
-  console.log(sessionStorage);
+  return selected;
 }
+
+
 
 function renderResults(data){
 	//add scores to array  
