@@ -1,17 +1,10 @@
-//Ensure that users cannot move onto the next question without selecting an answer 
-//Add a picture to the results page 
-//Add a try again button?
-
-//Ensure that session storage is clear on page load or refresh 
+//Clear session store on page load or refresh
 sessionStorage.clear();
 
-
-//select HTML elements using JavaScript
 var nextButton = document.getElementById("btn-next");
 var prevButton = document.getElementById("btn-prev");
 var resultButton = document.getElementById("btn-result");
 var mainContentElement = document.getElementById("myForm");
-
 var questionScores = [];
 
 ready(runApplication);
@@ -26,77 +19,38 @@ function ready(fn) {
   }
 }
 
-
 function runApplication(){
-	console.log("Dom is Ready!");
 	var http = new XMLHttpRequest();
 	http.open('GET', 'api.json');
 	http.send();
 
 	http.onload = function(){ 
 	  var jsonData = JSON.parse(http.responseText);
-	  //render survey interface on load
-	  renderQuestionnaire(jsonData); 
-	  prevButton.classList.add("u-hidden-visually");
-	  resultButton.classList.add("u-hidden-visually");
-
-	  //track questions page 
 	  var currentPage = 0; 
 
-		//next button event
+	  renderQuestionnaire(jsonData);
+	  buttonController(currentPage, jsonData);
+
+
 		nextButton.addEventListener("click", function(){
-
-			//add selection to session storage 
-			whichInput(jsonData, currentPage); 
-
+			getRadioInput(jsonData, currentPage); 
 			currentPage ++; 
-			prevButton.classList.remove("u-hidden-visually");
-			
-			if (currentPage >= jsonData.questions.length - 1) {
-				console.log("the end");
-				this.classList.toggle("u-hidden-visually");
-				resultButton.classList.toggle("u-hidden-visually");
-			}
 			renderQuestionnaire(jsonData, currentPage);
+			buttonController(currentPage, jsonData);
 		});
 
-		//previous button event 
 		prevButton.addEventListener("click", function(){
 			currentPage --; 
-			
-			if (currentPage <= 0) {
-				console.log("We can return no further!");
-				this.classList.toggle("u-hidden-visually");
-	
-			} else if(currentPage < jsonData.questions.length) {
-				nextButton.classList.remove("u-hidden-visually");
-			}
 			renderQuestionnaire(jsonData, currentPage);
+			buttonController(currentPage, jsonData);
 		});
 
 		resultButton.addEventListener("click", function(){
-			whichInput(jsonData, currentPage);
-			//process the results
-
-			// retrieve session values before adding them to an array: 
-			for (var i = 0; i < sessionStorage.length; i++){
-			questionScores.push(parseInt(sessionStorage.getItem(sessionStorage.key([i]))));
-			}
-
-			//run array method to show most represented answer 
-			var totalScore = questionScores.reduce(function(a,b){
-				return a + b; 
-			}, 0);
-
-			console.log(totalScore);
-
-			//render answer if sum is x return y if sum is a return b if sum is c return d blah blah
-			renderResults(totalScore, jsonData);
-			//hide prev button, hide result button 
+			getRadioInput(jsonData, currentPage);
+			renderResults(jsonData);
 			this.classList.toggle("u-hidden-visually");
 			prevButton.classList.add("u-hidden-visually");
-
-		})
+		});
 	}
 }
 
@@ -104,27 +58,22 @@ function runApplication(){
 function renderQuestionnaire(data, value){
 	var htmlString = "";
 	var index = value || 0;
-
-
 	htmlString += '<h5 id="heading">' + data.questions[index].heading + '</h5>';
 
     for (i = 0; i < data.questions[index].choices.length ; i++) {
-
   	  htmlString += '<label class="block">';
   	  //value should be pulled from index object? It's static at the moment 
   	  htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup">'; 
   	  htmlString += data.questions[index].choices[i].question;
       htmlString +=  '</label>'; 
     }
-
   mainContentElement.innerHTML = htmlString;
- 
 }
 
 //Use JavaScript to add radio selection
 
 //alert, no item selected if no element has been checked. 
-function whichInput(data, page){
+function getRadioInput(data, page){
   var inputs = document.getElementsByTagName('input');
   var value = "";
   var index = page || 0;
@@ -136,20 +85,28 @@ function whichInput(data, page){
         break;
       }
   }
-
   sessionStorage.setItem(data.questions[index].page, value);
   console.log(sessionStorage);
 }
 
-function renderResults(sum, data){
-	//Add some content to say how the user scored 
+function renderResults(data){
+	//add scores to array  
+	for (var i = 0; i < sessionStorage.length; i++){
+	questionScores.push(parseInt(sessionStorage.getItem(sessionStorage.key([i]))));
+	}
+	//run array method to show most represented answer 
+	var totalScore = questionScores.reduce(function(a,b){
+		return a + b; 
+	}, 0);
+
+	//render results 
 	var text = '<p>';
 	var image = '<img src=';
 
-	if(sum <= 7) {
+	if(totalScore <= 7) {
 		text += "You are in terrible shape and need to make serious changes. Sort out your life, now!";
 		image += data.images.slob;
-	} else if (sum <= 14){
+	} else if (totalScore <= 14){
 		text += "You're on the right track but could do more. Keep pushing!";
 		image += data.images.middle;
 	} else {
@@ -159,14 +116,26 @@ function renderResults(sum, data){
 
 	text += '</p>';
 	image +='>'
-
 	text += image;
-
 	mainContentElement.innerHTML = text;
-	//add a button to restart the quiz
 }
 
+function buttonController(currentPage, data){
+	if (currentPage === 0 ){
+		prevButton.classList.add("u-hidden-visually");
+		resultButton.classList.add("u-hidden-visually");
 
+	} else if (currentPage === data.questions.length - 1) {
+		resultButton.classList.remove("u-hidden-visually");
+		prevButton.classList.remove("u-hidden-visually");
+		nextButton.classList.add("u-hidden-visually");
+
+	} else {
+		resultButton.classList.add("u-hidden-visually");
+		prevButton.classList.remove("u-hidden-visually");
+		nextButton.classList.remove("u-hidden-visually");
+	}
+}
 
 
 
