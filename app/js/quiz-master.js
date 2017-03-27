@@ -1,6 +1,6 @@
-"use strict";
+var quizMaster = (function quizModule(){
+	"use strict";
 
-(function quizModule(){
 	//Clear session store on page load or refresh
 	sessionStorage.clear();
 
@@ -139,7 +139,7 @@
 			nextButton.classList.remove("u-hidden-visually");
 		}
 	}
-})();
+});
 
 
 
