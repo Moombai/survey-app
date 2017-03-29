@@ -7,21 +7,46 @@ var quizMaster = (function quizModule(){
 	var nextButton = document.getElementById("btn-next");
 	var prevButton = document.getElementById("btn-prev");
 	var resultButton = document.getElementById("btn-result");
+	var restartButton = document.getElementById("btn-restart");
 	var mainContentElement = document.getElementById("myForm");
+
+	var quizBackground = document.querySelector(".survey-container");
+
 	var questionScores = [];
 
-	runApplication();
+	var defaults = {
+		theme: "theme-one",
+		backButton: true,
+		restartButton: true,
+		questionCount: false,
+		font: "sans",
+		dimensions: "wide"
+	}
 
-	function runApplication(){
+	function runApplication(args){
 		var http = new XMLHttpRequest();
 		http.open('GET', 'api.json');
 		http.send();
 
+	    // write function to overide existing defaults if provided 
+	    for(var prop in args) {
+	        if(args.hasOwnProperty(prop)){
+	            defaults[prop] = args[prop];
+	        }
+	    }
+
+	    //Update theme 
+	    quizBackground.classList.add(defaults.theme);
+	    //Display back button? 
+	    if ( ! defaults.backButton ) {
+	      prevButton.classList.add("hidden");	
+	    }
+	    
 		http.onload = function(){ 
 		  var jsonData = JSON.parse(http.responseText);
 		  var currentPage = 0; 
 
-		  renderQuestionnaire(jsonData);
+		  renderQuestionnaire(jsonData, currentPage);
 		  buttonController(currentPage, jsonData);
 
 
@@ -48,10 +73,18 @@ var quizMaster = (function quizModule(){
 					renderResults(jsonData);
 					this.classList.toggle("u-hidden-visually");
 					prevButton.classList.add("u-hidden-visually");
+
+					if (defaults.restartButton === true) {
+						restartButton.classList.remove("u-hidden-visually");
+					}
 				} else {
 					alert("Please make a selection!");
 				}
 			});
+
+			restartButton.addEventListener("click", function(){
+				return window.location.reload();
+			})
 		}
 	}
 
@@ -59,6 +92,13 @@ var quizMaster = (function quizModule(){
 	function renderQuestionnaire(data, value){
 		var htmlString = "";
 		var index = value || 0;
+		htmlString += '<h1 id="h1" class="title">My Quiz</h1>';
+
+		//Check for defaults value
+		if (defaults.questionCount === true) {
+			htmlString += '<p>Question ' + (value + 1) + '/5</p>';
+		}
+
 		htmlString += '<h5 id="heading">' + data.questions[index].heading + '</h5>';
 
 	    for (var i = 0; i < data.questions[index].choices.length ; i++) {
@@ -83,7 +123,6 @@ var quizMaster = (function quizModule(){
 	      if (inputs[i].type === 'radio' && inputs[i].checked) {
 	          // get value, set checked flag or do whatever you need to
 	        value = i + 1; 
-	        console.log(value);
 	        selected = true;
 	        break;
 	      }
@@ -103,9 +142,10 @@ var quizMaster = (function quizModule(){
 		}, 0);
 
 		//render results 
-		var text = '<p>';
+		var text = '<h1 id="h1" class="title">My Quiz</h1>' + '<p>';
 		var image = '<img src=';
 
+		//Need to update answers to come from JSON
 		if(totalScore <= 7) {
 			text += "You are in terrible shape and need to make serious changes. Sort out your life, now!";
 			image += data.images.slob;
@@ -118,7 +158,8 @@ var quizMaster = (function quizModule(){
 		}
 
 		text += '</p>';
-		image +='>'
+
+		image +='>';
 		text += image;
 		mainContentElement.innerHTML = text;
 	}
@@ -139,7 +180,11 @@ var quizMaster = (function quizModule(){
 			nextButton.classList.remove("u-hidden-visually");
 		}
 	}
-});
+
+	return {
+		init: runApplication
+	}
+})();
 
 
 

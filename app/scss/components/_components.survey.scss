@@ -1,9 +1,22 @@
 .survey-container {
     width:50%;
     margin:auto;
+}
+
+.theme-one {
     background-color: #87CEFA;
     border-style: solid;
     border-color: black;
+}
+
+.theme-two {
+    background-color: lightgoldenrodyellow;
+    border-style: double;
+    border-color: black;
+}
+
+.hidden {
+	display: none;
 }
 
 .title {
