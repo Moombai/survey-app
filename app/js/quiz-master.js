@@ -23,32 +23,30 @@ var quizMaster = (function quizModule(){
 	}
 
 	function runApplication(args){
-		var http = new XMLHttpRequest();
-		http.open('GET', 'api.json');
-		http.send();
-
-	    // write function to overide existing defaults if provided 
+	    //Override defaults if options provided by the user
 	    for(var prop in args) {
 	        if(args.hasOwnProperty(prop)){
 	            defaults[prop] = args[prop];
 	        }
 	    }
 
-	    //Update theme 
+	    //Update the quiz based on user options 
 	    quizBackground.classList.add(defaults.theme);
-
-	    //Select font 
+	    //Update fonts
 	    if (defaults.font === "trebuchet") {
 	    	document.body.classList.add("trebuchet");
 	    } else if (defaults.font === "lucida") {
 	    	document.body.classList.add("lucida");
 	    }
-
 	    //Display back button
 	    if ( ! defaults.backButton ) {
 	      prevButton.classList.add("hidden");	
 	    }
-	    
+
+		var http = new XMLHttpRequest();
+		http.open('GET', 'api.json');
+		http.send();
+
 		http.onload = function(){ 
 		  var jsonData = JSON.parse(http.responseText);
 		  var currentPage = 0; 
@@ -99,7 +97,7 @@ var quizMaster = (function quizModule(){
 	function renderQuestionnaire(data, value){
 		var htmlString = "";
 		var index = value || 0;
-		htmlString += '<h1 id="h1" class="title">My Quiz</h1>';
+		htmlString += '<h1 id="h1" class="title">' + data.title + '</h1>';
 
 		//Check for defaults value
 		if (defaults.questionCount === true) {
@@ -110,7 +108,6 @@ var quizMaster = (function quizModule(){
 
 	    for (var i = 0; i < data.questions[index].choices.length ; i++) {
 	  	  htmlString += '<label class="block">';
-	  	  //value should be pulled from index object? It's static at the moment 
 	  	  htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup">'; 
 	  	  htmlString += data.questions[index].choices[i].question;
 	      htmlString +=  '</label>'; 
@@ -118,7 +115,6 @@ var quizMaster = (function quizModule(){
 	  mainContentElement.innerHTML = htmlString;
 	}
 
-	//Use JavaScript to add radio selection
 
 	//alert, no item selected if no element has been checked. 
 	function getRadioInput(data, page){
@@ -149,18 +145,18 @@ var quizMaster = (function quizModule(){
 		}, 0);
 
 		//render results 
-		var text = '<h1 id="h1" class="title">My Quiz</h1>' + '<p>';
+		var text = '<h1 id="h1" class="title">' + data.title + '</h1><p>';
 		var image = '<img src=';
 
-		//Need to update answers to come from JSON
+		//render responses from JSON
 		if(totalScore <= 7) {
-			text += "You are in terrible shape and need to make serious changes. Sort out your life, now!";
+			text += data.feedback[0];
 			image += data.images.slob;
 		} else if (totalScore <= 14){
-			text += "You're on the right track but could do more. Keep pushing!";
+			text += data.feedback[1];
 			image += data.images.middle;
 		} else {
-			text += "You really are in great shape, keep going!";
+			text += data.feedback[2];
 			image += data.images.healthy;
 		}
 
