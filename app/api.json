@@ -5,7 +5,7 @@
         "healthy": "http://www.gymbodygain.com/wp-content/uploads/2013/06/Arnold.jpg"
     }, 
     "questions": [{
-        "page": "A",
+        "page": "1",
         "heading": "How often do you work out per week?",
         "choices": [{
             "question": "Franzen ramps readymade, succulents vinyl craft beer street.",
@@ -29,7 +29,7 @@
             "selected": false
         }]
     }, {
-        "page": "B",
+        "page": "2",
         "heading": "If you had a choice between getting the bus and walking to work you would...",
         "choices": [{
             "question": "Cold-pressed vexillologist brunch kale chips ennui pok pok, knausgaard etsy intelligentsia.",
@@ -53,7 +53,7 @@
             "selected": false
         }]
     }, {
-        "page": "C",
+        "page": "3",
         "heading": "You have the option to eat McDonalds or bowl of fruit, what do you do?",
         "choices": [{
             "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",
@@ -77,7 +77,7 @@
             "selected": false
         }]
     }, {
-        "page": "D",
+        "page": "4",
         "heading": "Its 10pm and you feel hungry, do you?",
         "choices": [{
             "question": "Lorem Ipsum is simply dummy text of the printing and typesetting.",
@@ -101,7 +101,7 @@
             "selected": false
         }]
     }, {
-        "page": "E",
+        "page": "5",
         "heading": "French Fries or Sweet Potato?",
         "choices": [{
             "question": "Kale chips jean shorts irony coloring book. Direct trade kickstarter.",

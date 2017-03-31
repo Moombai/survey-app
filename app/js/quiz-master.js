@@ -9,7 +9,6 @@ var quizMaster = (function quizModule(){
 	var resultButton = document.getElementById("btn-result");
 	var restartButton = document.getElementById("btn-restart");
 	var mainContentElement = document.getElementById("myForm");
-
 	var quizBackground = document.querySelector(".survey-container");
 
 	var questionScores = [];
@@ -19,8 +18,8 @@ var quizMaster = (function quizModule(){
 		backButton: true,
 		restartButton: true,
 		questionCount: false,
-		font: "sans",
-		dimensions: "wide"
+		font: "default",
+		fadeIn: true 
 	}
 
 	function runApplication(args){
@@ -37,7 +36,15 @@ var quizMaster = (function quizModule(){
 
 	    //Update theme 
 	    quizBackground.classList.add(defaults.theme);
-	    //Display back button? 
+
+	    //Select font 
+	    if (defaults.font === "trebuchet") {
+	    	document.body.classList.add("trebuchet");
+	    } else if (defaults.font === "lucida") {
+	    	document.body.classList.add("lucida");
+	    }
+
+	    //Display back button
 	    if ( ! defaults.backButton ) {
 	      prevButton.classList.add("hidden");	
 	    }

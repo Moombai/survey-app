@@ -1487,6 +1487,12 @@ table {
     .c-btn--ghost.c-btn--tertiary:hover, .c-btn--ghost.c-btn--tertiary:focus {
       color: #fff; }
 
+.trebuchet {
+  font-family: "Trebuchet MS", Helvetica, sans-serif; }
+
+.lucida {
+  font-family: "Lucida Console", Monaco, monospace; }
+
 .survey-container {
   width: 50%;
   margin: auto; }

@@ -5,6 +5,6 @@ myQuiz.init({
 	backButton: true,
 	restartButton: true,
 	questionCount: false,
-	font: "default",
-	dimensions: "small"
+	font: "trebuchet",
+	fadeIn: true
 });
