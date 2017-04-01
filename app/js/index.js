@@ -4,7 +4,7 @@ myQuiz.init({
 	theme: "theme-two",
 	backButton: true,
 	restartButton: true,
-	questionCount: false,
+	questionCount: true,
 	font: "trebuchet",
 	fadeIn: true
 });

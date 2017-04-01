@@ -19,32 +19,33 @@ var quizMaster = (function quizModule(){
 		restartButton: true,
 		questionCount: false,
 		font: "default",
-		fadeIn: true 
+		fadeIn: true,
+		json: './api.json'
 	}
 
+	//Override defaults with user options
 	function runApplication(args){
-	    //Override defaults if options provided by the user
 	    for(var prop in args) {
 	        if(args.hasOwnProperty(prop)){
 	            defaults[prop] = args[prop];
 	        }
 	    }
 
-	    //Update the quiz based on user options 
+	    //Apply theme based on user options
 	    quizBackground.classList.add(defaults.theme);
-	    //Update fonts
+	    //Apply font based on user options
 	    if (defaults.font === "trebuchet") {
 	    	document.body.classList.add("trebuchet");
 	    } else if (defaults.font === "lucida") {
 	    	document.body.classList.add("lucida");
 	    }
-	    //Display back button
+	    //Display back button if true
 	    if ( ! defaults.backButton ) {
 	      prevButton.classList.add("hidden");	
 	    }
 
 		var http = new XMLHttpRequest();
-		http.open('GET', 'api.json');
+		http.open('GET', defaults.json, true);
 		http.send();
 
 		http.onload = function(){ 
@@ -53,7 +54,6 @@ var quizMaster = (function quizModule(){
 
 		  renderQuestionnaire(jsonData, currentPage);
 		  buttonController(currentPage, jsonData);
-
 
 			nextButton.addEventListener("click", function(){
 				var inputSelection = getRadioInput(jsonData, currentPage); 
@@ -92,18 +92,17 @@ var quizMaster = (function quizModule(){
 			})
 		}
 	}
-
-	//Render the survey interface   
+ 
 	function renderQuestionnaire(data, value){
 		var htmlString = "";
 		var index = value || 0;
 		htmlString += '<h1 id="h1" class="title">' + data.title + '</h1>';
 		
-		//Add fade class if true
+		//Add fadeIn class if true
 		defaults.fadeIn === true ? htmlString += '<div class="fader">' : htmlString += '<div>';
 		//Check for defaults value
 		if (defaults.questionCount === true) {
-			htmlString += '<p>Question ' + (value + 1) + '/5</p>';
+			htmlString += '<p>Question ' + (value + 1) + ' of ' + data.questions.length +  '</p>';
 		}
 
 		htmlString += '<h5 id="heading">' + data.questions[index].heading + '</h5>';
@@ -151,7 +150,7 @@ var quizMaster = (function quizModule(){
 		var text = '<h1 id="h1" class="title">' + data.title + '</h1><p>';
 		var image = '<img src=';
 
-		//render responses from JSON
+		//from JSON
 		if(totalScore <= 7) {
 			text += data.feedback[0];
 			image += data.images.slob;
@@ -170,6 +169,7 @@ var quizMaster = (function quizModule(){
 		mainContentElement.innerHTML = text;
 	}
 
+	//Controller decides if buttons are displayed 
 	function buttonController(currentPage, data){
 		if (currentPage === 0 ){
 			prevButton.classList.add("u-hidden-visually");
