@@ -98,7 +98,9 @@ var quizMaster = (function quizModule(){
 		var htmlString = "";
 		var index = value || 0;
 		htmlString += '<h1 id="h1" class="title">' + data.title + '</h1>';
-
+		
+		//Add fade class if true
+		defaults.fadeIn === true ? htmlString += '<div class="fader">' : htmlString += '<div>';
 		//Check for defaults value
 		if (defaults.questionCount === true) {
 			htmlString += '<p>Question ' + (value + 1) + '/5</p>';
@@ -112,6 +114,7 @@ var quizMaster = (function quizModule(){
 	  	  htmlString += data.questions[index].choices[i].question;
 	      htmlString +=  '</label>'; 
 	    }
+	    htmlString += '</div>';
 	  mainContentElement.innerHTML = htmlString;
 	}
 
