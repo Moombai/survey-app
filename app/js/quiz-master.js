@@ -20,7 +20,7 @@ var quizMaster = (function quizModule(){
 		questionCount: false,
 		font: "default",
 		fadeIn: true,
-		json: './api.json'
+		json: './mock.json'
 	}
 
 	//Override defaults with user options
