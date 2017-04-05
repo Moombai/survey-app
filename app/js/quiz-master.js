@@ -188,9 +188,7 @@ var quizMaster = (function quizModule(){
 	}
 
 	return {
-		init: function(inputs){
-			runApplication(inputs)
-		}
+		init: runApplication
 	}
 })();
 
