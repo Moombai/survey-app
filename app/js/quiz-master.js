@@ -23,38 +23,25 @@ var quizMaster = (function quizModule(){
 		json: './mock.json'
 	}
 
-	//Override defaults with user options
-	function runApplication(args){
-	    for(var prop in args) {
-	        if(args.hasOwnProperty(prop)){
-	            defaults[prop] = args[prop];
-	        }
-	    }
+	//Run application 
+	function init(updates){
 
-	    //Apply theme based on user options
-	    quizBackground.classList.add(defaults.theme);
-	    //Apply font based on user options
-	    if (defaults.font === "trebuchet") {
-	    	document.body.classList.add("trebuchet");
-	    } else if (defaults.font === "lucida") {
-	    	document.body.classList.add("lucida");
-	    }
-	    //Display back button if true
-	    if ( ! defaults.backButton ) {
-	      prevButton.classList.add("hidden");	
-	    }
+		updateDefaults(updates);
 
+	    // Split out into a load data method
 		var http = new XMLHttpRequest();
 		http.open('GET', defaults.json, true);
 		http.send();
 
 		http.onload = function(){ 
-		  var jsonData = JSON.parse(http.responseText);
-		  var currentPage = 0; 
+		  	var jsonData = JSON.parse(http.responseText);
+		  	var currentPage = 0; 
 
-		  renderQuestionnaire(jsonData, currentPage);
-		  buttonController(currentPage, jsonData);
+		  	renderQuestionnaire(jsonData, currentPage);
+		  	buttonController(currentPage, jsonData);
 
+
+		  	// Split out into a bind events method
 			nextButton.addEventListener("click", function(){
 				var inputSelection = getRadioInput(jsonData, currentPage); 
 				if (inputSelection === true) {
@@ -117,6 +104,25 @@ var quizMaster = (function quizModule(){
 	  mainContentElement.innerHTML = htmlString;
 	}
 
+	function updateDefaults(args){
+	    for(var prop in args) {
+	        if(args.hasOwnProperty(prop)){
+	            defaults[prop] = args[prop];
+	        }
+	    }
+		//Break the default into it's own function and add the function here 
+	    quizBackground.classList.add(defaults.theme);
+	    //Apply font based on user options
+	    if (defaults.font === "trebuchet") {
+	    	document.body.classList.add("trebuchet");
+	    } else if (defaults.font === "lucida") {
+	    	document.body.classList.add("lucida");
+	    }
+	    //Display back button if true
+	    if ( ! defaults.backButton ) {
+	      prevButton.classList.add("hidden");	
+	    }
+	}
 
 	//alert, no item selected if no element has been checked. 
 	function getRadioInput(data, page){
@@ -151,16 +157,22 @@ var quizMaster = (function quizModule(){
 		var image = '<img src=';
 
 		//from JSON
+
+		// Refactor data so that closer to
+		// data.result.healthy.image
+		// data.result.healthy.feedback
 		if(totalScore <= 7) {
-			text += data.feedback[0];
-			image += data.images.slob;
+			text += data.feedback.poor;
+			image += data.images.poor;
 		} else if (totalScore <= 14){
-			text += data.feedback[1];
-			image += data.images.middle;
+			text += data.feedback.average;
+			image += data.images.average;
 		} else {
-			text += data.feedback[2];
-			image += data.images.healthy;
+			text += data.feedback.good;
+			image += data.images.good;
 		}
+
+		
 
 		text += '</p>';
 
@@ -188,8 +200,8 @@ var quizMaster = (function quizModule(){
 	}
 
 	return {
-		init: runApplication
-	}
+		init: init
+	};
 })();
 
 
