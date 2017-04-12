@@ -23,63 +23,69 @@ var quizMaster = (function quizModule(){
 		json: './mock.json'
 	}
 
-	//Run application 
-	function init(updates){
-
+	function init(updates) {
 		updateDefaults(updates);
+		makeAJAXCall("GET", defaults.json, runApplication);
+	}
 
-	    // Split out into a load data method
-		var http = new XMLHttpRequest();
-		http.open('GET', defaults.json, true);
-		http.send();
+	//Run application 
+	function runApplication(data){
+		var currentPage = 0;
+		var jsonData = JSON.parse(data);
 
-		http.onload = function(){ 
-		  	var jsonData = JSON.parse(http.responseText);
-		  	var currentPage = 0; 
-
-		  	renderQuestionnaire(jsonData, currentPage);
-		  	buttonController(currentPage, jsonData);
+	  	renderQuestionnaire(jsonData, currentPage);
+	  	buttonController(currentPage, jsonData);
 
 
-		  	// Split out into a bind events method
-			nextButton.addEventListener("click", function(){
-				var inputSelection = getRadioInput(jsonData, currentPage); 
-				if (inputSelection === true) {
-					currentPage ++; 
-					renderQuestionnaire(jsonData, currentPage);
-					buttonController(currentPage, jsonData);
-				} else {
-					alert("Please make a selection!");
-				}
-			});
-
-			prevButton.addEventListener("click", function(){
-				currentPage --; 
+	  	// Split out into a bind events method
+		nextButton.addEventListener("click", function(){
+			var inputSelection = getRadioInput(jsonData, currentPage); 
+			if (inputSelection === true) {
+				currentPage ++; 
 				renderQuestionnaire(jsonData, currentPage);
 				buttonController(currentPage, jsonData);
-			});
+			} else {
+				alert("Please make a selection!");
+			}
+		});
 
-			resultButton.addEventListener("click", function(){
-				var inputSelection = getRadioInput(jsonData, currentPage); 
-				if (inputSelection === true) {
-					renderResults(jsonData);
-					this.classList.toggle("u-hidden-visually");
-					prevButton.classList.add("u-hidden-visually");
+		prevButton.addEventListener("click", function(){
+			currentPage --; 
+			renderQuestionnaire(jsonData, currentPage);
+			buttonController(currentPage, jsonData);
+		});
 
-					if (defaults.restartButton === true) {
-						restartButton.classList.remove("u-hidden-visually");
-					}
-				} else {
-					alert("Please make a selection!");
+		resultButton.addEventListener("click", function(){
+			var inputSelection = getRadioInput(jsonData, currentPage); 
+			if (inputSelection === true) {
+				renderResults(jsonData);
+				this.classList.toggle("u-hidden-visually");
+				prevButton.classList.add("u-hidden-visually");
+
+				if (defaults.restartButton === true) {
+					restartButton.classList.remove("u-hidden-visually");
 				}
-			});
+			} else {
+				alert("Please make a selection!");
+			}
+		});
 
-			restartButton.addEventListener("click", function(){
-				return window.location.reload();
-			})
-		}
+		restartButton.addEventListener("click", function(){
+			return window.location.reload();
+		})		
 	}
- 
+
+	function makeAJAXCall(methodType, url, callback){
+	var xhr = new XMLHttpRequest();
+	xhr.open(methodType, url, true);
+	xhr.onreadystatechange = function(){
+	     if (xhr.readyState === 4 && xhr.status === 200){
+	     	callback(xhr.responseText);
+	     }
+	 }
+	 xhr.send();
+	}
+	
 	function renderQuestionnaire(data, value){
 		var htmlString = "";
 		var index = value || 0;
@@ -171,8 +177,6 @@ var quizMaster = (function quizModule(){
 			text += data.feedback.good;
 			image += data.images.good;
 		}
-
-		
 
 		text += '</p>';
 
