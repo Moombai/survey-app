@@ -32,8 +32,8 @@ var quizMaster = (function quizModule() {
     function runApplication(data) {
         var jsonData = JSON.parse(data);
 
-        renderQuestionnaire(jsonData, currentPage);
-        buttonController(currentPage, jsonData);
+        renderQuestionnaire(jsonData);
+        buttonController(jsonData);
         // Split out into a bind events method
         bindEvents(jsonData);
     }
@@ -55,7 +55,7 @@ var quizMaster = (function quizModule() {
             if (inputSelection === true) {
                 currentPage++;
                 renderQuestionnaire(data, currentPage);
-                buttonController(currentPage, data);
+                buttonController(data);
             } else {
                 alert("Please make a selection!");
             }
@@ -64,7 +64,7 @@ var quizMaster = (function quizModule() {
         prevButton.addEventListener("click", function() {
             currentPage--;
             renderQuestionnaire(data, currentPage);
-            buttonController(currentPage, data);
+            buttonController(data);
         });
 
         resultButton.addEventListener("click", function() {
@@ -87,24 +87,23 @@ var quizMaster = (function quizModule() {
         });
     }
 
-    function renderQuestionnaire(data, value) {
+    function renderQuestionnaire(data) {
         var htmlString = "";
-        var index = value || 0;
         htmlString += '<h1 id="h1" class="title">' + data.title + '</h1>';
 
         //Add fadeIn class if true
         defaults.fadeIn === true ? htmlString += '<div class="fader">' : htmlString += '<div>';
         //Check for defaults value
         if (defaults.questionCount === true) {
-            htmlString += '<p>Question ' + (value + 1) + ' of ' + data.questions.length + '</p>';
+            htmlString += '<p>Question ' + (currentPage + 1) + ' of ' + data.questions.length + '</p>';
         }
 
-        htmlString += '<h5 id="heading">' + data.questions[index].heading + '</h5>';
+        htmlString += '<h5 id="heading">' + data.questions[currentPage].heading + '</h5>';
 
-        for (var i = 0; i < data.questions[index].choices.length; i++) {
+        for (var i = 0; i < data.questions[currentPage].choices.length; i++) {
             htmlString += '<label class="block">';
             htmlString += '<input type="radio" class="u-margin-right-tiny" name="radgroup">';
-            htmlString += data.questions[index].choices[i].question;
+            htmlString += data.questions[currentPage].choices[i].question;
             htmlString += '</label>';
         }
         htmlString += '</div>';
@@ -187,7 +186,7 @@ var quizMaster = (function quizModule() {
     }
 
     //Controller decides if buttons are displayed 
-    function buttonController(currentPage, data) {
+    function buttonController(data) {
         if (currentPage === 0) {
             prevButton.classList.add("u-hidden-visually");
             resultButton.classList.add("u-hidden-visually");
