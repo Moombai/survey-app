@@ -29,14 +29,14 @@ quizMaster.init({
 });
 ```
 ## Options
-The questionnaire can be initialized without any arguments however the following arguments are provided:
+The questionnaire can be initialized without any arguments however the following options are provided:
 
-**theme** (String) Default "theme-one"; - A second theme is provided as "theme-two"
-**backButton** (Boolean) Default: true; - Indicate whether a back button is required 
-**restartButton** (Boolean) Default: true; - If true a restart button will display at the end of the quiz
-**questionCount** (Boolean) Default: false;- A question counter will display if required  
-**font** (String) Default: "trebuchet";- "lucida" font can be provided as an alternative 
-**fadeIn** (Boolean) Default: true;- Questions will fade in if true 
+- **theme** (String) Default "theme-one"; - A second theme is provided as "theme-two"
+- **backButton** (Boolean) Default: true; - Indicate whether a back button is required 
+- **restartButton** (Boolean) Default: true; - If true a restart button will display at the end of the quiz
+- **questionCount** (Boolean) Default: false;- A question counter will display if required  
+- **font** (String) Default: "trebuchet";- "lucida" font can be provided as an alternative 
+- **fadeIn** (Boolean) Default: true;- Questions will fade in if true 
 
 ### Example 
 ```
