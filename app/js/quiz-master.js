@@ -18,9 +18,8 @@ var quizMaster = (function quizModule() {
         backButton: true,
         restartButton: true,
         questionCount: false,
-        font: "default",
+        font: "trebuchet",
         fadeIn: true,
-        json: './mock.json'
     };
 
     function init(updates) {

@@ -1,6 +1,4 @@
-//quizMaster requires arguments to update jSON file. 
-var myQuiz = quizMaster;
-myQuiz.init({
+quizMaster.init({
 	theme: "theme-two",
 	backButton: true,
 	restartButton: true,

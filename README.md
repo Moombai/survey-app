@@ -12,12 +12,8 @@ A native JavaScript Questionnaire designed to be flexible enough to plug into an
 
 ## Installation 
 - Navigate to your directory of choice 
-- Clone repo with the following command 
-```
-git clone https://github.com/Moombai/survey-app.git
-```
-
-- Run **npm install** from the terminal 
+- In the terminal enter: `git clone https://github.com/Moombai/survey-app.git`
+- Run **npm install** 
 
 The development environment can be built with the default gulp task. Gulp will compile any Sass, open in the browser and watch for any changes to html/css/javascript.
 
@@ -28,25 +24,23 @@ gulp build
 ## Usage 
 To initialize the questionnaire call `quizMaster.init()` in the **index.js** file:  
 ```
-var myQuiz = quizMaster;
-myQuiz.init({
+quizMaster.init({
     //Options here 
 });
 ```
 ## Options
 The questionnaire can be initialized without any arguments however the following arguments are provided:
 
-theme (String) Default "theme-one"; - A second theme is provided as "theme-two"
-backButton (Boolean) Default: true; - Indicate whether a back button is required 
-restartButton (Boolean) Default: true; - If true a restart button will display at the end of the quiz
-questionCount (Boolean) Default: false;- A question counter will display if required  
-font (String) Default: "trebuchet";- "lucida" font can be provided as an alternative 
-fadeIn (Boolean) Default: true;- Questions will **fade in** if true 
+**theme** (String) Default "theme-one"; - A second theme is provided as "theme-two"
+**backButton** (Boolean) Default: true; - Indicate whether a back button is required 
+**restartButton** (Boolean) Default: true; - If true a restart button will display at the end of the quiz
+**questionCount** (Boolean) Default: false;- A question counter will display if required  
+**font** (String) Default: "trebuchet";- "lucida" font can be provided as an alternative 
+**fadeIn** (Boolean) Default: true;- Questions will fade in if true 
 
 ### Example 
 ```
-var myQuiz = quizMaster;
-myQuiz.init({
+quizMaster.init({
 	theme: "theme-two",
 	backButton: true,
 	font: "trebuchet",
