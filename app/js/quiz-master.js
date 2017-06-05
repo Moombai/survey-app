@@ -25,7 +25,29 @@ var quizMaster = (function quizModule() {
 
     function init(updates) {
         updateDefaults(updates);
-        makeAJAXCall("GET", defaults.json, runApplication);
+        getQuestions('./mock.json').then(runApplication)
+                                 .catch(function(e){
+                                    console.error("The following error occurred:", e);
+                                 });
+    }
+
+    function getQuestions(url) {
+        return new Promise(function(resolve, reject){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onload = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    resolve(xhr.responseText);
+                } else {
+                    reject(xhr.status);    
+                }
+            };
+
+            xhr.onerror = function(){
+                reject(xhr.status);
+            };
+            xhr.send();      
+        });
     }
 
     //Run application 
@@ -38,16 +60,6 @@ var quizMaster = (function quizModule() {
         bindEvents(jsonData);
     }
 
-    function makeAJAXCall(methodType, url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.open(methodType, url, true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                callback(xhr.responseText);
-            }
-        };
-        xhr.send();
-    }
 
     function bindEvents(data) {
         nextButton.addEventListener("click", function() {
