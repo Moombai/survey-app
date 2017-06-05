@@ -21,7 +21,7 @@ var quizMaster = (function quizModule() {
         font: "default",
         fadeIn: true,
         json: './mock.json'
-    }
+    };
 
     function init(updates) {
         updateDefaults(updates);
@@ -45,7 +45,7 @@ var quizMaster = (function quizModule() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 callback(xhr.responseText);
             }
-        }
+        };
         xhr.send();
     }
 
